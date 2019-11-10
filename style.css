@@ -1,0 +1,21 @@
+  body {
+    background-color: silver;
+  }
+  p {
+    color: pink;
+  }
+  .blue-text {
+    color: blue;
+  }
+  h1 {
+    font-family: Lobster, monospace;
+    text-align: center;
+  }
+  .red-text {
+    color: red;
+  }
+  #bones {
+    justify-content: left;
+    text-align: center;
+    color: blue;
+  }
