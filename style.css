@@ -1,24 +1,50 @@
   body {
     background-color: silver;
   }
+  .navbar {
+    display: flex;
+    justify-self: left;
+    position: fixed;
+    width: 200px;
+    min-width: 190px;
+  }
+  .navbar a {
+    padding: 10px 30px;
+  }
+  .navbar ul {
+  height: 88%;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 5px;
+}
+.navbar li {
+  border-top: black 1px solid;
+  width: 100%;
+  font-size: 1.4rem;
+  padding: 5px;
+  margin: 5px;
+}
+  .main-body {
+    margin: 250px;
+  }
   p {
-    color: pink;
+    color: black;
   }
-  .blue-text {
-    color: blue;
-  }
+
   h1 {
     font-family: Lobster, monospace;
     text-align: center;
   }
-  .red-text {
-    color: red;
-  }
-  #bones {
-    justify-content: left;
-    text-align: center;
-    color: blue;
-  }
+.intro {
+  height: 60vh;
+}
+.education {
+  height: 60vh;
+}
+.works {
+  height: 60hv;
+}
   .contact-section {
     display: flex;
     flex-direction: column;
@@ -26,7 +52,6 @@
     align-items: center;
     text-align: center;
     width: 100%;
-    height: 80vh;
+    height: 60vh;
     padding: 0 2rem;
-    background: gray;
   }
