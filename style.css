@@ -1,15 +1,42 @@
   body {
     background-color: silver;
   }
+  .headshot {
+    max-width: 50px;
+    max-height: 50px;
+    margin: 0;
+  }
+  #headshot {
+    display: block;
+  }
   .navbar {
-    display: flex;
-    justify-self: left;
+    height: 100%;
+    width: 0;
     position: fixed;
-    width: 200px;
-    min-width: 190px;
+    z-index: 1; /* stay on top */
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden; /* Disable horizontol Scroll */
+    padding-top: 60px;
+    transition: 0.5s;
   }
   .navbar a {
-    padding: 10px 30px;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  .navbar a:hover {
+    color: #f1f1f1;
+  }
+  .navbar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
   }
   .navbar ul {
   height: 88%;
@@ -26,8 +53,14 @@
   margin: 5px;
 }
   .main-body {
-    margin: 250px;
+    margin-left: 100px;
+    padding: 20px;
+    transition: margin-left .5s;
   }
+@media screen and (max-height: 450px) {
+  .navbar {padding-top: 15px;}
+  .navbar a {font-size: 18px;}
+}
   p {
     color: black;
   }
@@ -37,13 +70,22 @@
     text-align: center;
   }
 .intro {
-  height: 60vh;
+  margin: 10px;
 }
 .education {
-  height: 60vh;
+  margin: 10px;
 }
 .works {
-  height: 60hv;
+  margin: 10px;
+}
+.works-parent {
+  display: flex;
+  height: 300px;
+}
+.works-child {
+  height: 50px;
+  width: 50px;
+  margin: auto;
 }
   .contact-section {
     display: flex;

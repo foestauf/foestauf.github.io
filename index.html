@@ -6,26 +6,46 @@
   <head>
     <title>Foestauf's Page</title>
   </head>
-  <div class="navbar">
+  <div id="myNavbar" class="navbar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="nav-parent">
     <ul>
       <li><a class="nav-link" href="#intro">Intro</a></li>
       <li><a class="nav-link" href="#education">Education</a></li>
       <li><a class="nav-link" href="#works">Works</a></li>
       <li><a class="nav-link" href="#contact">Contact</a></li>
     </ul>
+    </div>
   </div>
-  <div class="main-body">
-  <div class="intro">
-    <h2>A brief intro to who I am</h2>
-    <p>Just a guy who wants to code.</p>
+  <span style="font-size: 30px;cursor:pointer;position: fixed;" onclick="openNav()">&#9776; Nav</span> 
+  <div id="main" class="main-body">
+  <div id="intro" class="intro">
+    <h2>Robert McKee Jr</h2>
+    <p>A jack of all trades, master of none.</p>
+      <figure>
+        <img id="headshot" src="headshot.jpg" alt="My Face" width=100px height="100px">
+        <figcaption id="img-caption">Robert McKee Jr.</figcaption>
+      </figure>
+    <p>I should put a brief bio about me here.</p>
   </div>
-  <div class="education">
+  <div id="education" class="education">
     <h2>Education</h2>
     <p>School of hard knocks.</p>
   </div>
-  <div class="works">
+  <div id="works" class="works">
     <h2>Works</h2>
     <p>I should put a flex box of sorts with my projects in here</p>
+    <div class="works-parent">
+      <div class="works-child">
+        <a href="https://github.com/foestauf/OC">Nuclearcraft stuff in OpenComputers</a>
+      </div>
+      <div class="works-child">
+        My Works 2
+      </div>
+      <div class="works-child">
+        My Works 3
+      </div>
+    </div>
   </div>
   <section id="contact" class="contact-section">
     <div class="contact-section-header">
@@ -37,4 +57,14 @@
   </div>
   </section>
   </div>
-</html>
+<script>
+function openNav() {
+  document.getElementById("myNavbar").style.width ="250px";
+  document.getElementById("main").style.marginLeft ="250px";
+}
+function closeNav() {
+  document.getElementById("myNavbar").style.width = "0";
+  document.getElementById("main").style.marginLeft ="100px";
+}
+</script>
+  </html>
