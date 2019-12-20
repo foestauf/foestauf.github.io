@@ -55,7 +55,7 @@ const IndexPage = () => (
           <p>
             I have mostly been working on freeCodeCamp projects, OpenComputers for Minecraft, and other websites.
           </p>
-
+            { /*}
           <div className="row">
             <div className="col-4 col-12-mobile">
               <article className="item">
@@ -112,6 +112,7 @@ const IndexPage = () => (
               </article>
             </div>
           </div>
+          { */}
         </div>
       </section>
 
@@ -122,7 +123,7 @@ const IndexPage = () => (
           </header>
 
           <a href="/#" className="image featured">
-            <img src={pic8} alt="" />
+          {/*}  <img src={pic8} alt="" /> {*/}
           </a>
 
           <p>
@@ -146,7 +147,7 @@ const IndexPage = () => (
           <p>
             Probably going to delete this soon. 
           </p>
-
+          { /* }
           <form method="post" action="#">
             <div className="row">
               <div className="col-6 col-12-mobile">
@@ -163,6 +164,7 @@ const IndexPage = () => (
               </div>
             </div>
           </form>
+          {*/}
         </div>
       </section>
     </div>
