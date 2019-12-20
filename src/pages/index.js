@@ -29,7 +29,7 @@ const IndexPage = () => (
         <div className="container">
           <header>
             <h2 className="alt">
-              Hi! I'm <strong>Anubhav</strong>
+              Hi! I'm <strong>Rob</strong>
               <br />
               Web developer
             </h2>
@@ -53,10 +53,7 @@ const IndexPage = () => (
           </header>
 
           <p>
-            Life will feel it is always a great need for eu valley, the valley
-            CNN ridiculous smile at any time chat mainstream clinical homes.
-            Mauris floor was very warm and we need it. One customer now nibh
-            Bureau dark pools behavior.
+            I have mostly been working on freeCodeCamp projects, OpenComputers for Minecraft, and other websites.
           </p>
 
           <div className="row">
@@ -129,13 +126,13 @@ const IndexPage = () => (
           </a>
 
           <p>
-            Developers football competition in diameter big price to layer the
-            pot. Chavez ultricies care who wants to CNN. Lobortis elementum
-            aliquet eget a den of which they do not hold it in hatred developers
-            nor the mountains of the deposit slip. The element of time, sem ante
-            ullamcorper dolor nulla quam placerat viverra environment is not
-            with our customers. Free makeup and skirt until the mouse or
-            partners or to decorate each targeted.
+            I have often worked around, on, or near computers throughout most of
+            my life. While deployed to Iraq in 2003 I had a C++ book shipped to
+            me. I started my first attempt to teach myself coding. At that time
+            I didn't latch on with everything else that was going on around me.
+            Fast forward to 2019 my wife noticed I was pretty tech savy with
+            computers and encouraged me to try my hand at coding. So here we
+            are. My first baby steps into the dev world.
           </p>
         </div>
       </section>
@@ -147,11 +144,7 @@ const IndexPage = () => (
           </header>
 
           <p>
-            The element of time, sem ante ullamcorper dolor nulla quam placerat
-            viverra environment is not with our customers. Free makeup and skirt
-            until the mouse. Japan this innovative and ultricies carton salad
-            clinical ridiculous now passes from enhanced. Mauris pot innovative
-            care for my pain.
+            Probably going to delete this soon. 
           </p>
 
           <form method="post" action="#">

@@ -1,5 +1,5 @@
 module.exports = {
-  siteTitle: 'Gatsby Starter Prologue', // <title>
+  siteTitle: "Rob's Development corner", // <title>
   manifestName: 'Prologue',
   manifestShortName: 'Landing', // max 12 characters
   manifestStartUrl: '/',
@@ -7,30 +7,30 @@ module.exports = {
   manifestThemeColor: '#663399',
   manifestDisplay: 'standalone',
   manifestIcon: 'src/assets/img/website-icon.png',
-  pathPrefix: `/gatsby-starter-prologue/`, // This path is subpath of your hosting https://domain/portfolio
-  authorName: 'Anubhav',
-  heading: 'Web Developer',
+  pathPrefix: `/`, // This path is subpath of your hosting https://domain/portfolio
+  authorName: 'Rob',
+  heading: 'Aspiring Dev',
   // social
   socialLinks: [
     {
       icon: 'fa-github',
       name: 'Github',
-      url: 'https://github.com/anubhavsrivastava',
+      url: 'https://github.com/foestauf',
     },
-    {
-      icon: 'fa-twitter',
-      name: 'Twitter',
-      url: 'https://twitter.com/onlyanubhav',
-    },
-    {
-      icon: 'fa-facebook',
-      name: 'Facebook',
-      url: 'https://facebook.com/theanubhav',
-    },
+//    {
+//      icon: 'fa-twitter',
+//     name: 'Twitter',
+//      url: 'https://twitter.com/onlyanubhav',
+//    },
+//    {
+//      icon: 'fa-facebook',
+//      name: 'Facebook',
+//      url: 'https://facebook.com/theanubhav',
+//    },
     {
       icon: 'fa-envelope-o',
       name: 'Email',
-      url: 'mailto:anubhav.srivastava00@gmail.com',
+      url: 'mailto:foestauf@gmail.com',
     },
   ],
 };
