@@ -21,4 +21,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REACT_APP_APIKey: ${{ secrets.REACT_APP_APIKey }}
           BRANCH: master
-          FOLDER: build
+          FOLDER: public
