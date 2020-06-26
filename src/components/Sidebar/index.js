@@ -26,15 +26,15 @@ export default function SideBar({ sections = [] }) {
         <Footer socialLinks={config.socialLinks} />
       </div>
 
-      {/* <section id="header">
-        <Header
-          avatar={pic}
-          title={config.authorName}
-          heading={config.heading}
-        />
-        <Nav sections={sections} />
-        <Footer socialLinks={config.socialLinks} />
-      </section> */}
+      {/* <section id="header">*/}
+      {/*  <Header*/}
+      {/*    avatar={pic}*/}
+      {/*    title={config.authorName}*/}
+      {/*    heading={config.heading}*/}
+      {/*  />*/}
+      {/*  <Nav sections={sections} />*/}
+      {/*  <Footer socialLinks={config.socialLinks} />*/}
+      {/*</section>*/}
     </div>
   );
 }
