@@ -1,24 +1,16 @@
-name: Deploy to GitHub Pages
+name: Gatsby Publish
+
 on:
   push:
     branches:
       - gh-pages
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Build
-        run: |
-          npm ci
-          npm run-script build
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      - uses: actions/checkout@v1
+      - uses: enriikke/gatsby-gh-pages-action@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REACT_APP_APIKey: ${{ secrets.REACT_APP_APIKey }}
-          BRANCH: master
-          FOLDER: build
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          deploy-repo: master
