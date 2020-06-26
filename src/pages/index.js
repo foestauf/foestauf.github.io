@@ -47,7 +47,7 @@ const IndexPage = () => (
             Most of my projects revolve around the MERN (Mongo Express React Node) technology stack.
           </p>
           <Nav.Link href="https://foestauf.me/yeast-calc">Yeast Calculator</Nav.Link>
-          <Nav.Link href="https://foestauf.me/Pomodoro-clock">Pomodoro Clock</Nav.Link>
+          <Nav.Link href="https://foestauf.me/pomodoro-clock">Pomodoro Clock</Nav.Link>
         </div>
       </section>
 
