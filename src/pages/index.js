@@ -2,7 +2,7 @@ import React from 'react';
 import Nav from "react-bootstrap/Nav";
 import Layout from '../components/Layout';
 import PageFooter from '../components/PageFooter';
-import SideBar from '../components/SideBar';
+import SideBar from '../components/SideBar/index';
 
 import Scroll from '../components/Scroll';
 
