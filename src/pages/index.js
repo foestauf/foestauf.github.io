@@ -23,7 +23,7 @@ const IndexPage = () => (
             <h2 className="alt">
               Hi! I'm <strong>Rob</strong>
               <br />
-              An aspiring web developer
+              Font end engineer.
             </h2>
             <p>Please checkout a few of my projects</p>
           </header>
@@ -48,6 +48,7 @@ const IndexPage = () => (
           </p>
           <Nav.Link href="https://foestauf.me/yeast-calc">Yeast Calculator</Nav.Link>
           <Nav.Link href="https://foestauf.me/pomodoro-clock">Pomodoro Clock</Nav.Link>
+          <Nav.Link href="https://www.ellipsisbrewing.com">Ellipsis Brewing</Nav.Link>
         </div>
       </section>
 
@@ -63,7 +64,7 @@ const IndexPage = () => (
             my life. While deployed to Iraq in 2003 I had a C++ book shipped to
             me. I started my first attempt to teach myself coding. At that time
             I didn't latch on with everything else that was going on around me.
-            Fast forward to 2019 my wife noticed I was pretty tech savy with
+            Fast forward to 2019 my wife noticed I was pretty tech savvy with
             computers and encouraged me to try my hand at coding. So here we
             are. My first baby steps into the dev world.
           </p>
