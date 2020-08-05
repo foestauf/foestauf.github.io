@@ -3,7 +3,6 @@ updates:
 
   - package-ecosystem: "github-actions"
     directory: "/"
-    target-branch: "gh-pages"
     schedule:
       # Check for updates to GitHub Actions every weekday
-      interval: "daily"
+      interval: "monthly"
