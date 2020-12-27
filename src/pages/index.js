@@ -23,7 +23,7 @@ const IndexPage = () => (
             <h2 className="alt">
               Hi! I'm <strong>Rob</strong>
               <br />
-              Font end engineer.
+              Software Engineer
             </h2>
             <p>Please checkout a few of my projects</p>
           </header>
