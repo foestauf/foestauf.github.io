@@ -22,8 +22,9 @@ const IndexPage = () => (
           <header>
             <h2 className="alt">
               Hi! I'm <strong>Rob</strong>
-              <br />
-              Software Engineer
+              <h5>
+              Software Developer
+              </h5>
             </h2>
             <p>Please checkout a few of my projects</p>
           </header>
