@@ -49,7 +49,6 @@ const IndexPage = () => (
           </p>
           <Nav.Link href="https://foestauf.me/yeast-calc">Yeast Calculator</Nav.Link>
           <Nav.Link href="https://foestauf.me/pomodoro-clock">Pomodoro Clock</Nav.Link>
-          <Nav.Link href="https://www.ellipsisbrewing.com">Ellipsis Brewing</Nav.Link>
         </div>
       </section>
 
