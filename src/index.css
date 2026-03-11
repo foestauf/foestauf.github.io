@@ -202,6 +202,33 @@ body { margin: 0; padding: 0; overflow: hidden; }
   font-family: 'Courier New', 'Lucida Console', Monaco, monospace;
 }
 
+/* ===== App utility classes ===== */
+
+.win95-separator {
+  border-top: 1px solid var(--win95-border-dark);
+  border-bottom: 1px solid var(--win95-border-light);
+  margin: 4px 0;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #c0c0c0;
+  caret-color: #c0c0c0;
+  font-family: 'Courier New', 'Lucida Console', Monaco, monospace;
+  font-size: 13px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.win95-btn-disabled {
+  color: var(--win95-text-disabled);
+  cursor: default;
+}
+
 /* ===== Boot screen animations ===== */
 
 /* Blinking block cursor */
