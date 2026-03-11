@@ -6,6 +6,7 @@ interface DesktopStore {
   windows: WindowState[];
   nextZIndex: number;
   iconPositions: Record<string, { x: number; y: number }>;
+  selectedIcons: string[];
 
   openApp: (appId: string, payload?: unknown) => void;
   closeWindow: (windowId: string) => void;
@@ -16,6 +17,8 @@ interface DesktopStore {
   updateWindowSize: (windowId: string, size: { width: number; height: number }) => void;
   toggleMaximize: (windowId: string) => void;
   updateIconPosition: (appId: string, position: { x: number; y: number }) => void;
+  selectIcons: (appIds: string[]) => void;
+  clearSelection: () => void;
 }
 
 // Store pre-maximize geometry outside of Zustand to avoid polluting WindowState
@@ -28,6 +31,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
   windows: [],
   nextZIndex: 1,
   iconPositions: {},
+  selectedIcons: [],
 
   openApp: (appId, payload) => {
     const app = getAppById(appId);
@@ -126,6 +130,14 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
     set((state) => ({
       iconPositions: { ...state.iconPositions, [appId]: position },
     }));
+  },
+
+  selectIcons: (appIds) => {
+    set({ selectedIcons: appIds });
+  },
+
+  clearSelection: () => {
+    set({ selectedIcons: [] });
   },
 
   toggleMaximize: (windowId) => {
