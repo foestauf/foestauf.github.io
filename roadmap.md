@@ -60,26 +60,30 @@ Make it look like a beige box from 1998.
 
 First impressions matter.
 
-- [ ] BootScreen (`os/BootScreen.tsx`) — fake POST/startup text sequence
-- [ ] Timed transitions with staged loading messages
-- [ ] Transition animation into the desktop
+- [x] BootScreen (`os/BootScreen.tsx`) — fake POST/startup text sequence
+- [x] Timed transitions with staged loading messages
+- [x] Transition animation into the desktop
 
 ## Phase 6: Apps
 
 The actual content.
 
 ### AboutApp
+
 - [ ] "About This System" dialog with bio, current focus, personality
 
 ### ResumeApp
+
 - [ ] Notepad-style text viewer with resume content
 
 ### ProjectsApp
+
 - [ ] File explorer-style project browser
 - [ ] Project detail sub-windows on selection
 - [ ] Seed with project data (name, summary, stack, links, category)
 
 ### TerminalApp
+
 - [ ] Retro CLI with command history and fake shell prompt
 - [ ] Core commands: `help`, `about`, `projects`, `resume`, `github`, `contact`, `clear`
 - [ ] Fun commands: `game`, `brew`, `sudo hire-me`
@@ -87,9 +91,11 @@ The actual content.
 - [ ] Commands that open windows via the window manager
 
 ### TrashApp
+
 - [ ] Easter egg window with abandoned/half-baked project ideas
 
 ### MiniGameApp
+
 - [ ] Placeholder game window
 - [ ] Launchable via terminal `game` command or hidden desktop interaction
 - [ ] Structured so a real game can be swapped in later

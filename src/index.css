@@ -201,3 +201,27 @@ body { margin: 0; padding: 0; overflow: hidden; }
 .font-mono-retro {
   font-family: 'Courier New', 'Lucida Console', Monaco, monospace;
 }
+
+/* ===== Boot screen animations ===== */
+
+/* Blinking block cursor */
+@keyframes bios-cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.bios-cursor {
+  animation: bios-cursor-blink 1s step-end infinite;
+  color: #aaaaaa;
+  font-size: 13px;
+}
+
+/* Win95 splash progress bar fill — chunky blue blocks */
+.boot-progress-fill {
+  background: repeating-linear-gradient(
+    to right,
+    var(--win95-title-active) 0px,
+    var(--win95-title-active) 10px,
+    transparent 10px,
+    transparent 12px
+  );
+}

@@ -31,9 +31,6 @@ export default function Desktop() {
 
       <WindowLayer />
       <Taskbar />
-
-      {/* CRT scanline overlay */}
-      <div className="crt-overlay" />
     </div>
   );
 }
