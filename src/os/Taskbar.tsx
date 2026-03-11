@@ -50,118 +50,107 @@ export default function Taskbar() {
       {startMenuOpen && <StartMenu onClose={() => setStartMenuOpen(false)} />}
 
       <div
+        className="win95-outset"
         style={{
           position: 'fixed',
           bottom: 0,
           left: 0,
           right: 0,
-          height: 48,
+          height: 40,
           zIndex: 10000,
-          background: '#c0c0c0',
-          borderTop: '2px solid #ffffff',
           display: 'flex',
           alignItems: 'center',
-          padding: '0 4px',
-          gap: 4,
+          padding: '2px 3px',
+          gap: 3,
         }}
       >
         {/* Start button */}
         <button
+          className={startMenuOpen ? 'win95-inset' : 'win95-outset'}
           onMouseDown={(e) => {
             e.stopPropagation();
             setStartMenuOpen((prev) => !prev);
           }}
           style={{
-            height: 36,
-            padding: '0 10px',
+            height: 32,
+            padding: '0 8px',
             fontWeight: 'bold',
-            fontSize: 13,
+            fontSize: 12,
             cursor: 'pointer',
-            background: '#c0c0c0',
-            ...(startMenuOpen
-              ? {
-                  borderTop: '2px solid #808080',
-                  borderLeft: '2px solid #808080',
-                  borderBottom: '2px solid #ffffff',
-                  borderRight: '2px solid #ffffff',
-                }
-              : {
-                  borderTop: '2px solid #ffffff',
-                  borderLeft: '2px solid #ffffff',
-                  borderBottom: '2px solid #808080',
-                  borderRight: '2px solid #808080',
-                }),
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
           }}
         >
-          🪟 Start
+          <span style={{ fontSize: 16 }}>🪟</span>
+          <span>Start</span>
         </button>
 
         {/* Separator */}
         <div
           style={{
             width: 2,
-            height: 32,
-            borderLeft: '1px solid #808080',
-            borderRight: '1px solid #ffffff',
+            height: 28,
+            borderLeft: '1px solid var(--win95-border-dark)',
+            borderRight: '1px solid var(--win95-border-light)',
+            flexShrink: 0,
           }}
         />
 
         {/* Window buttons */}
-        <div style={{ flex: 1, display: 'flex', gap: 3, overflow: 'hidden' }}>
+        <div style={{ flex: 1, display: 'flex', gap: 2, overflow: 'hidden' }}>
           {windows.map((win) => {
             const app = getAppById(win.appId);
             const isFocused = win.zIndex === maxZ && !win.minimized;
             return (
               <button
                 key={win.id}
+                className={isFocused ? 'win95-inset' : 'win95-outset'}
                 onClick={() => handleWindowButtonClick(win.id)}
                 style={{
-                  height: 32,
+                  height: 28,
                   maxWidth: 150,
-                  padding: '0 8px',
-                  fontSize: 12,
+                  minWidth: 80,
+                  padding: '0 6px',
+                  fontSize: 11,
                   cursor: 'pointer',
-                  background: '#c0c0c0',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                   display: 'flex',
                   alignItems: 'center',
                   gap: 4,
-                  ...(isFocused
-                    ? {
-                        borderTop: '2px solid #808080',
-                        borderLeft: '2px solid #808080',
-                        borderBottom: '2px solid #ffffff',
-                        borderRight: '2px solid #ffffff',
-                      }
-                    : {
-                        borderTop: '2px solid #ffffff',
-                        borderLeft: '2px solid #ffffff',
-                        borderBottom: '2px solid #808080',
-                        borderRight: '2px solid #808080',
-                      }),
+                  fontWeight: isFocused ? 'bold' : 'normal',
                 }}
               >
-                <span>{app?.icon}</span>
+                <span style={{ fontSize: 12, flexShrink: 0 }}>{app?.icon}</span>
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{win.title}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Clock */}
+        {/* Separator */}
         <div
           style={{
-            height: 32,
-            padding: '0 12px',
+            width: 2,
+            height: 28,
+            borderLeft: '1px solid var(--win95-border-dark)',
+            borderRight: '1px solid var(--win95-border-light)',
+            flexShrink: 0,
+          }}
+        />
+
+        {/* Clock */}
+        <div
+          className="win95-inset"
+          style={{
+            height: 28,
+            padding: '0 10px',
             display: 'flex',
             alignItems: 'center',
-            fontSize: 12,
-            borderTop: '2px solid #808080',
-            borderLeft: '2px solid #808080',
-            borderBottom: '2px solid #ffffff',
-            borderRight: '2px solid #ffffff',
+            fontSize: 11,
+            flexShrink: 0,
           }}
         >
           {clock}

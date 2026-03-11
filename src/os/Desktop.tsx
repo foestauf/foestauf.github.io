@@ -9,15 +9,7 @@ const desktopApps = appRegistry.filter((app) => DESKTOP_APP_IDS.includes(app.id)
 
 export default function Desktop() {
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100vw',
-        height: '100vh',
-        overflow: 'hidden',
-        background: '#0f766e', // teal-700
-      }}
-    >
+    <div className="win95-desktop">
       {/* Icon grid */}
       <div
         style={{
@@ -39,6 +31,9 @@ export default function Desktop() {
 
       <WindowLayer />
       <Taskbar />
+
+      {/* CRT scanline overlay */}
+      <div className="crt-overlay" />
     </div>
   );
 }

@@ -42,15 +42,19 @@ Taskbar, Start Menu, Desktop Icons — the proper retro OS look.
 - [x] Desktop (`os/Desktop.tsx`) — full viewport with teal wallpaper, icon grid (5 apps, game hidden), WindowLayer + Taskbar layering
 - [x] App.tsx — swapped test harness for `<Desktop />`
 
-## Phase 4: Retro Styling
+## Phase 4: Retro Styling ✅
 
 Make it look like a beige box from 1998.
 
-- [ ] Retro CSS system — beveled buttons, inset panels, chunky borders, low-fi gradients
-- [ ] System fonts (pixel/monospace where appropriate)
-- [ ] Nostalgic wallpaper (tiled or classic gradient)
-- [ ] Subtle CRT effects — faint scanlines overlay, slight glow (CSS only)
-- [ ] Win95-style title bar buttons (close, minimize, maximize)
+- [x] Retro CSS system — CSS custom properties for Win95 palette, `.win95-outset`/`.win95-inset`/`.win95-window-frame`/`.win95-well` utility classes, inline styles migrated to classes
+- [x] System fonts — MS Sans Serif-approximating font stack (`Segoe UI`, Tahoma, Geneva), `.font-mono-retro` for terminal contexts, anti-aliasing disabled for pixel crispness
+- [x] Nostalgic wallpaper — classic teal `#008080` with subtle crosshatch dot pattern via CSS radial gradients
+- [x] Subtle CRT effects — faint scanline overlay (repeating-linear-gradient), soft teal screen glow (inset box-shadow), pointer-events-none at z-index 99999
+- [x] Win95-style title bar buttons — proper 16×14px buttons with pixel-art minimize line, maximize box, restore overlapping boxes, and ✕ close; `:active` press state; active/inactive title bar gradient (`#000080` → `#1084d0`)
+- [x] Retro scrollbars — Win95 chunky scrollbar track, thumb, and buttons via `::-webkit-scrollbar`
+- [x] Window chrome — outer frame with darkest edge, inner content well with white background, icon in title bar
+- [x] Start menu — gradient sidebar stripe, separator line before game entry
+- [x] Taskbar — tighter proportions (40px), bevelled separators, bold label for focused window
 
 ## Phase 5: Boot Sequence
 

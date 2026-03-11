@@ -4,6 +4,7 @@ import { getAppById } from '@/registry/appRegistry';
 
 export default function Window({ windowId }: { windowId: string }) {
   const win = useDesktopStore((s) => s.windows.find((w) => w.id === windowId));
+  const windows = useDesktopStore((s) => s.windows);
   const focusWindow = useDesktopStore((s) => s.focusWindow);
   const closeWindow = useDesktopStore((s) => s.closeWindow);
   const minimizeWindow = useDesktopStore((s) => s.minimizeWindow);
@@ -17,15 +18,16 @@ export default function Window({ windowId }: { windowId: string }) {
   if (!app) return null;
 
   const AppComponent = app.component;
+  const maxZ = Math.max(...windows.map((w) => w.zIndex));
+  const isActive = win.zIndex === maxZ;
 
   return (
     <Rnd
+      className="win95-window-frame"
       style={{
         display: win.minimized ? 'none' : 'flex',
         flexDirection: 'column',
         zIndex: win.zIndex,
-        border: '2px solid #888',
-        background: '#c0c0c0',
       }}
       size={win.size}
       position={win.position}
@@ -48,46 +50,76 @@ export default function Window({ windowId }: { windowId: string }) {
     >
       {/* Title bar */}
       <div
-        className="window-title-bar"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '2px 4px',
-          background: '#000080',
-          color: '#fff',
-          fontSize: '13px',
-          fontWeight: 'bold',
-          userSelect: 'none',
-          cursor: 'default',
-        }}
+        className={`window-title-bar ${isActive ? 'win95-title-bar' : 'win95-title-bar inactive'}`}
       >
-        <span>{win.title}</span>
-        <div style={{ display: 'flex', gap: '2px' }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4, overflow: 'hidden' }}>
+          <span style={{ fontSize: 12 }}>{app.icon}</span>
+          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {win.title}
+          </span>
+        </span>
+        <div style={{ display: 'flex', gap: 2, flexShrink: 0 }}>
           <button
+            className="win95-title-btn"
             onClick={(e) => { e.stopPropagation(); minimizeWindow(windowId); }}
-            style={{ width: 20, height: 20, fontSize: 12, cursor: 'pointer' }}
+            aria-label="Minimize"
           >
-            _
+            <span style={{ borderBottom: '2px solid #000', width: 6, height: 0, marginTop: 4 }} />
           </button>
           <button
+            className="win95-title-btn"
             onClick={(e) => { e.stopPropagation(); toggleMaximize(windowId); }}
-            style={{ width: 20, height: 20, fontSize: 12, cursor: 'pointer' }}
+            aria-label={win.maximized ? 'Restore' : 'Maximize'}
           >
-            □
+            {win.maximized ? (
+              <span style={{
+                width: 7, height: 7, position: 'relative',
+              }}>
+                <span style={{
+                  position: 'absolute', top: 0, right: 0,
+                  width: 6, height: 5,
+                  border: '1px solid #000', borderTop: '2px solid #000',
+                }} />
+                <span style={{
+                  position: 'absolute', bottom: 0, left: 0,
+                  width: 6, height: 5,
+                  border: '1px solid #000', borderTop: '2px solid #000',
+                  background: 'var(--win95-bg)',
+                }} />
+              </span>
+            ) : (
+              <span style={{
+                width: 8, height: 6,
+                border: '1px solid #000', borderTop: '2px solid #000',
+              }} />
+            )}
           </button>
           <button
+            className="win95-title-btn"
             onClick={(e) => { e.stopPropagation(); closeWindow(windowId); }}
-            style={{ width: 20, height: 20, fontSize: 12, cursor: 'pointer' }}
+            aria-label="Close"
+            style={{ marginLeft: 2 }}
           >
             ✕
           </button>
         </div>
       </div>
 
-      {/* App content */}
-      <div style={{ flex: 1, overflow: 'auto', padding: 4 }}>
-        <AppComponent windowId={windowId} />
+      {/* Inner bevel — 1px inset inside the window frame */}
+      <div style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        margin: '2px',
+        overflow: 'hidden',
+      }}>
+        {/* App content area — inset well */}
+        <div
+          className="win95-well"
+          style={{ flex: 1, overflow: 'auto', padding: 4 }}
+        >
+          <AppComponent windowId={windowId} />
+        </div>
       </div>
     </Rnd>
   );

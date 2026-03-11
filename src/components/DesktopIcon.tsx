@@ -23,14 +23,24 @@ export default function DesktopIcon({ appId, icon, title }: DesktopIconProps) {
         userSelect: 'none',
       }}
     >
-      <span style={{ fontSize: 32, lineHeight: 1 }}>{icon}</span>
+      <span
+        style={{
+          fontSize: 32,
+          lineHeight: 1,
+          filter: 'drop-shadow(1px 1px 0 rgba(0,0,0,0.3))',
+        }}
+      >
+        {icon}
+      </span>
       <span
         style={{
           fontSize: 11,
           color: '#fff',
-          textShadow: '1px 1px 2px #000, -1px -1px 2px #000',
+          textShadow:
+            '1px 0 1px #000, -1px 0 1px #000, 0 1px 1px #000, 0 -1px 1px #000',
           textAlign: 'center',
           wordBreak: 'break-word',
+          lineHeight: 1.2,
         }}
       >
         {title}

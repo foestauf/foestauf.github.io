@@ -12,18 +12,14 @@ export default function StartMenu({ onClose }: StartMenuProps) {
 
   return (
     <div
+      className="win95-outset"
       onMouseDown={(e) => e.stopPropagation()}
       style={{
         position: 'fixed',
-        bottom: 48,
+        bottom: 40,
         left: 0,
         width: 200,
         zIndex: 10001,
-        background: '#c0c0c0',
-        borderTop: '2px solid #ffffff',
-        borderLeft: '2px solid #ffffff',
-        borderBottom: '2px solid #808080',
-        borderRight: '2px solid #808080',
         display: 'flex',
         flexDirection: 'row',
       }}
@@ -31,18 +27,19 @@ export default function StartMenu({ onClose }: StartMenuProps) {
       {/* Sidebar stripe */}
       <div
         style={{
-          width: 30,
-          background: '#000080',
+          width: 28,
+          background: 'linear-gradient(to top, #000080 0%, #1084d0 100%)',
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'center',
           paddingBottom: 8,
+          flexShrink: 0,
         }}
       >
         <span
           style={{
             color: '#c0c0c0',
-            fontSize: 13,
+            fontSize: 12,
             fontWeight: 'bold',
             writingMode: 'vertical-rl',
             transform: 'rotate(180deg)',
@@ -55,32 +52,45 @@ export default function StartMenu({ onClose }: StartMenuProps) {
 
       {/* Menu items */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '2px 0' }}>
-        {appRegistry.map((app) => (
-          <button
-            key={app.id}
-            onClick={() => {
-              openApp(app.id);
-              onClose();
-            }}
-            onMouseEnter={() => setHoveredId(app.id)}
-            onMouseLeave={() => setHoveredId(null)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '6px 12px',
-              border: 'none',
-              background: hoveredId === app.id ? '#000080' : 'transparent',
-              color: hoveredId === app.id ? '#fff' : '#000',
-              fontSize: 13,
-              cursor: 'pointer',
-              textAlign: 'left',
-              width: '100%',
-            }}
-          >
-            <span style={{ fontSize: 20 }}>{app.icon}</span>
-            <span>{app.title}</span>
-          </button>
+        {appRegistry.map((app, i) => (
+          <div key={app.id}>
+            <button
+              onClick={() => {
+                openApp(app.id);
+                onClose();
+              }}
+              onMouseEnter={() => setHoveredId(app.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '5px 10px',
+                border: 'none',
+                background: hoveredId === app.id ? 'var(--win95-highlight)' : 'transparent',
+                color: hoveredId === app.id ? 'var(--win95-highlight-text)' : 'var(--win95-text)',
+                fontSize: 12,
+                cursor: 'pointer',
+                textAlign: 'left',
+                width: '100%',
+              }}
+            >
+              <span style={{ fontSize: 18, width: 24, textAlign: 'center', flexShrink: 0 }}>
+                {app.icon}
+              </span>
+              <span>{app.title}</span>
+            </button>
+            {/* Separator after the main apps, before the game */}
+            {i === appRegistry.length - 2 && (
+              <div
+                style={{
+                  margin: '2px 4px',
+                  borderTop: '1px solid var(--win95-border-dark)',
+                  borderBottom: '1px solid var(--win95-border-light)',
+                }}
+              />
+            )}
+          </div>
         ))}
       </div>
     </div>
