@@ -67,9 +67,19 @@ export default function Taskbar() {
         {/* Start button */}
         <button
           className={startMenuOpen ? 'win95-inset' : 'win95-outset'}
+          aria-label="Start menu"
+          aria-expanded={startMenuOpen}
+          aria-haspopup="true"
           onMouseDown={(e) => {
             e.stopPropagation();
             setStartMenuOpen((prev) => !prev);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              e.stopPropagation();
+              setStartMenuOpen((prev) => !prev);
+            }
           }}
           style={{
             height: 32,
@@ -123,7 +133,7 @@ export default function Taskbar() {
                   fontWeight: isFocused ? 'bold' : 'normal',
                 }}
               >
-                <span style={{ fontSize: 12, flexShrink: 0 }}>{app?.icon}</span>
+                <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0, width: 14, height: 14 }}>{typeof app?.icon === 'string' ? app.icon : <span style={{ transform: 'scale(0.44)', transformOrigin: 'top left' }}>{app?.icon}</span>}</span>
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{win.title}</span>
               </button>
             );

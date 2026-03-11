@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 export interface WindowState {
   id: string;
@@ -15,7 +15,7 @@ export interface WindowState {
 export interface AppDefinition {
   id: string;
   title: string;
-  icon: string;
+  icon: ReactNode;
   defaultSize: { width: number; height: number };
   defaultPosition: { x: number; y: number };
   singleInstance: boolean;

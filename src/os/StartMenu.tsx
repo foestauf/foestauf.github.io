@@ -1,6 +1,6 @@
 import { useDesktopStore } from '@/state/useDesktopStore';
 import { appRegistry } from '@/registry/appRegistry';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface StartMenuProps {
   onClose: () => void;
@@ -8,12 +8,48 @@ interface StartMenuProps {
 
 export default function StartMenu({ onClose }: StartMenuProps) {
   const openApp = useDesktopStore((s) => s.openApp);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [focusedIndex, setFocusedIndex] = useState<number>(0);
+  const hoveredId = appRegistry[focusedIndex]?.id ?? null;
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Focus the menu on mount and handle keyboard nav
+  useEffect(() => {
+    menuRef.current?.focus();
+  }, []);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    switch (e.key) {
+      case 'ArrowUp':
+        e.preventDefault();
+        setFocusedIndex((i) => (i <= 0 ? appRegistry.length - 1 : i - 1));
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        setFocusedIndex((i) => (i >= appRegistry.length - 1 ? 0 : i + 1));
+        break;
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        if (appRegistry[focusedIndex]) {
+          openApp(appRegistry[focusedIndex].id);
+          onClose();
+        }
+        break;
+      case 'Escape':
+        e.preventDefault();
+        onClose();
+        break;
+    }
+  };
 
   return (
     <div
+      ref={menuRef}
       className="win95-outset"
+      role="menu"
+      tabIndex={0}
       onMouseDown={(e) => e.stopPropagation()}
+      onKeyDown={handleKeyDown}
       style={{
         position: 'fixed',
         bottom: 40,
@@ -22,6 +58,7 @@ export default function StartMenu({ onClose }: StartMenuProps) {
         zIndex: 10001,
         display: 'flex',
         flexDirection: 'row',
+        outline: 'none',
       }}
     >
       {/* Sidebar stripe */}
@@ -55,12 +92,12 @@ export default function StartMenu({ onClose }: StartMenuProps) {
         {appRegistry.map((app, i) => (
           <div key={app.id}>
             <button
+              role="menuitem"
               onClick={() => {
                 openApp(app.id);
                 onClose();
               }}
-              onMouseEnter={() => setHoveredId(app.id)}
-              onMouseLeave={() => setHoveredId(null)}
+              onMouseEnter={() => setFocusedIndex(i)}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -75,8 +112,8 @@ export default function StartMenu({ onClose }: StartMenuProps) {
                 width: '100%',
               }}
             >
-              <span style={{ fontSize: 18, width: 24, textAlign: 'center', flexShrink: 0 }}>
-                {app.icon}
+              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 18, flexShrink: 0 }}>
+                {typeof app.icon === 'string' ? app.icon : <span style={{ transform: 'scale(0.56)', transformOrigin: 'center' }}>{app.icon}</span>}
               </span>
               <span>{app.title}</span>
             </button>

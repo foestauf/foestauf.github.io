@@ -1,5 +1,6 @@
 import { useDesktopStore } from '@/state/useDesktopStore';
 import { aboutInfo } from '@/data/about';
+import { ComputerIcon } from '@/components/icons/Win95Icons';
 
 export default function AboutApp({ windowId }: { windowId: string }) {
   const closeWindow = useDesktopStore((s) => s.closeWindow);
@@ -9,7 +10,7 @@ export default function AboutApp({ windowId }: { windowId: string }) {
       <div style={{ flex: 1, overflow: 'auto' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', padding: '8px 0' }}>
-          <div style={{ fontSize: 32 }}>💻</div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}><ComputerIcon size={48} /></div>
           <div style={{ fontSize: 16, fontWeight: 'bold', marginTop: 4 }}>{aboutInfo.name}</div>
           <div style={{ fontSize: 12, color: '#808080' }}>{aboutInfo.tagline}</div>
         </div>

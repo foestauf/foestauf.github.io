@@ -229,6 +229,15 @@ body { margin: 0; padding: 0; overflow: hidden; }
   cursor: default;
 }
 
+/* Focus styles for keyboard navigation */
+*:focus-visible {
+  outline: 1px dotted #000;
+  outline-offset: 1px;
+}
+.win95-desktop *:focus-visible {
+  outline: 1px dotted #fff;
+}
+
 /* ===== Boot screen animations ===== */
 
 /* Blinking block cursor */

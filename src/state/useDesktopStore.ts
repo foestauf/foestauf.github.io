@@ -2,11 +2,18 @@ import { create } from 'zustand';
 import type { WindowState } from '@/types/os';
 import { getAppById } from '@/registry/appRegistry';
 
+interface TrashedIcon {
+  appId: string;
+  title: string;
+  deletedAt: string;
+}
+
 interface DesktopStore {
   windows: WindowState[];
   nextZIndex: number;
   iconPositions: Record<string, { x: number; y: number }>;
   selectedIcons: string[];
+  trashedIcons: TrashedIcon[];
 
   openApp: (appId: string, payload?: unknown) => void;
   closeWindow: (windowId: string) => void;
@@ -19,6 +26,8 @@ interface DesktopStore {
   updateIconPosition: (appId: string, position: { x: number; y: number }) => void;
   selectIcons: (appIds: string[]) => void;
   clearSelection: () => void;
+  trashIcons: (appIds: string[]) => void;
+  emptyTrash: () => void;
 }
 
 // Store pre-maximize geometry outside of Zustand to avoid polluting WindowState
@@ -32,6 +41,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
   nextZIndex: 1,
   iconPositions: {},
   selectedIcons: [],
+  trashedIcons: [],
 
   openApp: (appId, payload) => {
     const app = getAppById(appId);
@@ -138,6 +148,31 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
 
   clearSelection: () => {
     set({ selectedIcons: [] });
+  },
+
+  trashIcons: (appIds) => {
+    set((state) => {
+      const now = new Date().toLocaleDateString('en-GB');
+      const newTrashed = appIds
+        .filter((id) => id !== 'trash') // can't trash the Trash
+        .filter((id) => !state.trashedIcons.some((t) => t.appId === id))
+        .map((id) => {
+          const app = getAppById(id);
+          return {
+            appId: id,
+            title: app?.title ?? id,
+            deletedAt: now,
+          };
+        });
+      return {
+        trashedIcons: [...state.trashedIcons, ...newTrashed],
+        selectedIcons: state.selectedIcons.filter((id) => !appIds.includes(id)),
+      };
+    });
+  },
+
+  emptyTrash: () => {
+    set({ trashedIcons: [] });
   },
 
   toggleMaximize: (windowId) => {

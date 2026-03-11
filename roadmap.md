@@ -104,9 +104,9 @@ The actual content.
 
 Ship it.
 
-- [ ] Mobile strategy — simplified fallback or cheeky "requires a larger monitor" message
-- [ ] Accessibility basics — keyboard nav, focus management
-- [ ] Seed with real content (actual projects, bio, resume)
-- [ ] Update GitHub Actions workflow for Vite build
+- [x] Mobile strategy — MobileGate component shows a cheeky "requires a proper monitor" dialog on viewports under 768px, with a "Sod it, show me anyway" override button
+- [x] Accessibility basics — keyboard nav (Tab through desktop icons, Enter/Space to open, Delete to trash, arrow keys + Enter in Start menu, Escape to close topmost window), focus-visible outlines, ARIA roles/labels on interactive elements
+- [x] Seed with real content (actual projects, bio, resume)
+- [x] Update GitHub Actions workflow for Vite build
 - [ ] Test deployment to GitHub Pages
-- [ ] Clean up old Gatsby files and configs
+- [x] Clean up old Gatsby files and configs

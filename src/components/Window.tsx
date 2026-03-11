@@ -53,7 +53,7 @@ export default function Window({ windowId }: { windowId: string }) {
         className={`window-title-bar ${isActive ? 'win95-title-bar' : 'win95-title-bar inactive'}`}
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: 4, overflow: 'hidden' }}>
-          <span style={{ fontSize: 12 }}>{app.icon}</span>
+          <span style={{ display: 'flex', alignItems: 'center', width: 14, height: 14 }}>{typeof app.icon === 'string' ? app.icon : <span style={{ transform: 'scale(0.44)', transformOrigin: 'top left' }}>{app.icon}</span>}</span>
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {win.title}
           </span>

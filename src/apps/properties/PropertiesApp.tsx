@@ -95,7 +95,7 @@ export default function PropertiesApp({ windowId }: { windowId: string }) {
                 paddingBottom: 8,
               }}
             >
-              <span style={{ fontSize: 32 }}>{app.icon}</span>
+              <span style={{ display: 'flex', alignItems: 'center', width: 32, height: 32 }}>{app.icon}</span>
               <span style={{ fontSize: 13, fontWeight: 'bold' }}>{app.title}</span>
             </div>
 

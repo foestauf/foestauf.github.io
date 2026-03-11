@@ -5,6 +5,7 @@ import WindowLayer from '@/os/WindowLayer';
 import Taskbar from '@/os/Taskbar';
 import { appRegistry } from '@/registry/appRegistry';
 import { useDesktopStore } from '@/state/useDesktopStore';
+import { TrashEmptyIcon, TrashFullIcon } from '@/components/icons/Win95Icons';
 
 const DESKTOP_APP_IDS = ['about', 'projects', 'resume', 'terminal', 'trash'];
 const ICON_WIDTH = 75;
@@ -14,7 +15,7 @@ const GRID_PADDING = 8;
 
 const desktopApps = appRegistry.filter((app) => DESKTOP_APP_IDS.includes(app.id));
 
-function getDefaultPosition(index: number) {
+export function getDefaultPosition(index: number) {
   const col = Math.floor(index / 5);
   const row = index % 5;
   return {
@@ -51,6 +52,28 @@ export default function Desktop() {
   const updateIconPosition = useDesktopStore((s) => s.updateIconPosition);
   const selectIcons = useDesktopStore((s) => s.selectIcons);
   const clearSelection = useDesktopStore((s) => s.clearSelection);
+  const trashedIcons = useDesktopStore((s) => s.trashedIcons);
+  const closeWindow = useDesktopStore((s) => s.closeWindow);
+  const windows = useDesktopStore((s) => s.windows);
+
+  // Global keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Escape closes the topmost window
+      if (e.key === 'Escape') {
+        const visibleWindows = windows.filter((w) => !w.minimized);
+        if (visibleWindows.length === 0) return;
+        const topWindow = visibleWindows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b));
+        closeWindow(topWindow.id);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [windows, closeWindow]);
+
+  const trashedIds = new Set(trashedIcons.map((t) => t.appId));
+  const visibleApps = desktopApps.filter((app) => !trashedIds.has(app.id));
+  const trashHasItems = trashedIcons.length > 0;
 
   // Seed default positions into the store so group dragging works for all icons
   useEffect(() => {
@@ -75,7 +98,9 @@ export default function Desktop() {
   }, []);
 
   const arrangeIcons = useCallback(() => {
-    desktopApps.forEach((app, index) => {
+    // Re-arrange only visible (non-trashed) icons
+    const visible = desktopApps.filter((app) => !useDesktopStore.getState().trashedIcons.some((t) => t.appId === app.id));
+    visible.forEach((app, index) => {
       updateIconPosition(app.id, getDefaultPosition(index));
     });
   }, [updateIconPosition]);
@@ -85,8 +110,9 @@ export default function Desktop() {
     (sel: SelectionRect) => {
       const selRect = rectFromSelection(sel);
       const selected: string[] = [];
-      desktopApps.forEach((app, index) => {
-        const pos = iconPositions[app.id] ?? getDefaultPosition(index);
+      visibleApps.forEach((app) => {
+        const pos = iconPositions[app.id];
+        if (!pos) return;
         const iconRect = {
           left: pos.x,
           top: pos.y,
@@ -99,7 +125,7 @@ export default function Desktop() {
       });
       selectIcons(selected);
     },
-    [iconPositions, selectIcons],
+    [iconPositions, selectIcons, visibleApps],
   );
 
   const onPointerDown = useCallback(
@@ -166,14 +192,18 @@ export default function Desktop() {
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
     >
-      {desktopApps.map((app, index) => {
-        const pos = iconPositions[app.id] ?? getDefaultPosition(index);
+      {visibleApps.map((app) => {
+        const pos = iconPositions[app.id] ?? { x: 0, y: 0 };
+        // Swap trash icon based on whether it has items
+        const icon = app.id === 'trash'
+          ? (trashHasItems ? TrashFullIcon() : TrashEmptyIcon())
+          : app.icon;
         return (
           <DesktopIcon
             key={app.id}
             appId={app.id}
-            icon={app.icon}
-            title={app.title}
+            icon={icon}
+            title={app.id === 'trash' && trashHasItems ? 'Trash (full)' : app.title}
             position={pos}
           />
         );

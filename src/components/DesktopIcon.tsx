@@ -1,12 +1,26 @@
-import { useRef, useCallback, useState } from 'react';
+import { useRef, useCallback, useState, type ReactNode } from 'react';
 import { useDesktopStore } from '@/state/useDesktopStore';
 import ContextMenu, { type ContextMenuItem } from '@/components/ContextMenu';
 
+const ICON_SIZE = 75;
+
 interface DesktopIconProps {
   appId: string;
-  icon: string;
+  icon: ReactNode;
   title: string;
   position: { x: number; y: number };
+}
+
+function isOverTrash(x: number, y: number): boolean {
+  const state = useDesktopStore.getState();
+  const trashPos = state.iconPositions['trash'];
+  if (!trashPos) return false;
+  return (
+    x > trashPos.x &&
+    x < trashPos.x + ICON_SIZE &&
+    y > trashPos.y &&
+    y < trashPos.y + ICON_SIZE
+  );
 }
 
 export default function DesktopIcon({ appId, icon, title, position }: DesktopIconProps) {
@@ -14,6 +28,7 @@ export default function DesktopIcon({ appId, icon, title, position }: DesktopIco
   const updateIconPosition = useDesktopStore((s) => s.updateIconPosition);
   const isSelected = useDesktopStore((s) => s.selectedIcons.includes(appId));
   const selectIcons = useDesktopStore((s) => s.selectIcons);
+  const trashIcons = useDesktopStore((s) => s.trashIcons);
   const dragRef = useRef<{
     startX: number;
     startY: number;
@@ -82,10 +97,10 @@ export default function DesktopIcon({ appId, icon, title, position }: DesktopIco
       });
 
       // Move all other selected icons by the same delta
-      for (const icon of dragRef.current.groupOffsets) {
-        updateIconPosition(icon.appId, {
-          x: icon.x + dx,
-          y: icon.y + dy,
+      for (const ico of dragRef.current.groupOffsets) {
+        updateIconPosition(ico.appId, {
+          x: ico.x + dx,
+          y: ico.y + dy,
         });
       }
     },
@@ -93,8 +108,23 @@ export default function DesktopIcon({ appId, icon, title, position }: DesktopIco
   );
 
   const onPointerUp = useCallback(() => {
+    if (!dragRef.current) return;
+    const didDrag = hasDragged.current;
     dragRef.current = null;
-  }, []);
+
+    // Check if dropped on the Trash icon
+    if (didDrag && appId !== 'trash') {
+      const state = useDesktopStore.getState();
+      const myPos = state.iconPositions[appId];
+      if (myPos && isOverTrash(myPos.x + ICON_SIZE / 2, myPos.y + ICON_SIZE / 2)) {
+        // Trash this icon and any other selected icons
+        const toTrash = state.selectedIcons.includes(appId)
+          ? state.selectedIcons.filter((id) => id !== 'trash')
+          : [appId];
+        trashIcons(toTrash);
+      }
+    }
+  }, [appId, trashIcons]);
 
   const handleContextMenu = useCallback(
     (e: React.MouseEvent) => {
@@ -105,9 +135,20 @@ export default function DesktopIcon({ appId, icon, title, position }: DesktopIco
     [],
   );
 
+  const handleDelete = useCallback(() => {
+    const state = useDesktopStore.getState();
+    const toTrash = state.selectedIcons.length > 0
+      ? state.selectedIcons.filter((id) => id !== 'trash')
+      : appId !== 'trash' ? [appId] : [];
+    if (toTrash.length > 0) trashIcons(toTrash);
+  }, [appId, trashIcons]);
+
   const menuItems: ContextMenuItem[] = [
     { label: 'Open', onClick: () => openApp(appId) },
     { label: '', separator: true },
+    ...(appId !== 'trash'
+      ? [{ label: 'Delete', onClick: handleDelete }]
+      : []),
     {
       label: 'Properties',
       onClick: () => openApp('properties', appId),
@@ -117,6 +158,9 @@ export default function DesktopIcon({ appId, icon, title, position }: DesktopIco
   return (
     <>
       <div
+        tabIndex={0}
+        role="button"
+        aria-label={`${title} — press Enter to open`}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -124,11 +168,23 @@ export default function DesktopIcon({ appId, icon, title, position }: DesktopIco
         onDoubleClick={() => {
           if (!hasDragged.current) openApp(appId);
         }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openApp(appId);
+          } else if (e.key === 'Delete' && appId !== 'trash') {
+            e.preventDefault();
+            handleDelete();
+          }
+        }}
+        onFocus={() => {
+          if (!isSelected) selectIcons([appId]);
+        }}
         style={{
           position: 'absolute',
           left: position.x,
           top: position.y,
-          width: 75,
+          width: ICON_SIZE,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -137,12 +193,16 @@ export default function DesktopIcon({ appId, icon, title, position }: DesktopIco
           cursor: 'default',
           userSelect: 'none',
           touchAction: 'none',
+          outline: 'none',
         }}
       >
         <span
           style={{
-            fontSize: 32,
-            lineHeight: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 32,
+            height: 32,
             filter: isSelected
               ? 'drop-shadow(1px 1px 0 rgba(0,0,0,0.3)) brightness(0.7) sepia(1) hue-rotate(180deg) saturate(3)'
               : 'drop-shadow(1px 1px 0 rgba(0,0,0,0.3))',
