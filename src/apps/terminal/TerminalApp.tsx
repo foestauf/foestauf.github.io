@@ -52,7 +52,7 @@ export default function TerminalApp({ windowId: _windowId }: { windowId: string 
 
       // Handle github command with side effect
       if (trimmed.toLowerCase() === 'github') {
-        window.open('https://github.com/foestauf', '_blank');
+        window.open('https://github.com/foestauf', '_blank', 'noopener,noreferrer');
       }
 
       const result = executeCommand(trimmed);
