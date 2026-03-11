@@ -5,6 +5,7 @@ import ResumeApp from '@/apps/resume/ResumeApp';
 import TerminalApp from '@/apps/terminal/TerminalApp';
 import TrashApp from '@/apps/trash/TrashApp';
 import MiniGameApp from '@/apps/game/MiniGameApp';
+import PropertiesApp from '@/apps/properties/PropertiesApp';
 
 export const appRegistry: AppDefinition[] = [
   { id: 'about',    title: 'About',         icon: '💻', defaultSize: { width: 500, height: 400 }, defaultPosition: { x: 100, y: 80 },  singleInstance: true,  component: AboutApp },
@@ -13,6 +14,7 @@ export const appRegistry: AppDefinition[] = [
   { id: 'terminal', title: 'Terminal',       icon: '🖥️', defaultSize: { width: 600, height: 400 }, defaultPosition: { x: 120, y: 120 }, singleInstance: false, component: TerminalApp },
   { id: 'trash',    title: 'Trash',          icon: '🗑️', defaultSize: { width: 400, height: 350 }, defaultPosition: { x: 250, y: 130 }, singleInstance: true,  component: TrashApp },
   { id: 'game',     title: 'Mystery Game',   icon: '🎮', defaultSize: { width: 480, height: 400 }, defaultPosition: { x: 180, y: 90 },  singleInstance: true,  component: MiniGameApp },
+  { id: 'properties', title: 'Properties',  icon: '📋', defaultSize: { width: 340, height: 380 }, defaultPosition: { x: 200, y: 100 }, singleInstance: false, component: PropertiesApp },
 ];
 
 export function getAppById(id: string): AppDefinition | undefined {

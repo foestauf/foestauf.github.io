@@ -5,6 +5,7 @@ import { getAppById } from '@/registry/appRegistry';
 interface DesktopStore {
   windows: WindowState[];
   nextZIndex: number;
+  iconPositions: Record<string, { x: number; y: number }>;
 
   openApp: (appId: string, payload?: unknown) => void;
   closeWindow: (windowId: string) => void;
@@ -14,6 +15,7 @@ interface DesktopStore {
   updateWindowPosition: (windowId: string, position: { x: number; y: number }) => void;
   updateWindowSize: (windowId: string, size: { width: number; height: number }) => void;
   toggleMaximize: (windowId: string) => void;
+  updateIconPosition: (appId: string, position: { x: number; y: number }) => void;
 }
 
 // Store pre-maximize geometry outside of Zustand to avoid polluting WindowState
@@ -25,6 +27,7 @@ const preMaximizeGeometry = new Map<
 export const useDesktopStore = create<DesktopStore>()((set, get) => ({
   windows: [],
   nextZIndex: 1,
+  iconPositions: {},
 
   openApp: (appId, payload) => {
     const app = getAppById(appId);
@@ -41,10 +44,17 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
       }
     }
 
+    // For properties windows, show the target app's name in the title
+    let title = app.title;
+    if (appId === 'properties' && typeof payload === 'string') {
+      const target = getAppById(payload);
+      if (target) title = `${target.title} Properties`;
+    }
+
     const newWindow: WindowState = {
       id: crypto.randomUUID(),
       appId,
-      title: app.title,
+      title,
       position: { ...app.defaultPosition },
       size: { ...app.defaultSize },
       zIndex: nextZIndex,
@@ -109,6 +119,12 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
       windows: state.windows.map((w) =>
         w.id === windowId ? { ...w, size } : w,
       ),
+    }));
+  },
+
+  updateIconPosition: (appId, position) => {
+    set((state) => ({
+      iconPositions: { ...state.iconPositions, [appId]: position },
     }));
   },
 
