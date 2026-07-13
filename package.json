@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Rob McKee \u2014 Retro desktop portfolio",
   "type": "module",
-  "packageManager": "pnpm@11.10.0",
+  "packageManager": "pnpm@11.11.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/foestauf/foestauf.github.io.git"
