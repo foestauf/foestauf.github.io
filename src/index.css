@@ -237,6 +237,11 @@ body { margin: 0; padding: 0; overflow: hidden; }
 .win95-desktop *:focus-visible {
   outline: 1px dotted #fff;
 }
+/* The terminal indicates focus with its caret; the desktop focus ring above
+   would otherwise outrank .terminal-input's `outline: none`. */
+.win95-desktop .terminal-input:focus-visible {
+  outline: none;
+}
 
 /* ===== Boot screen animations ===== */
 
